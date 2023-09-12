@@ -1,0 +1,6 @@
+# Write it!
+
+Mangrove/UnhandledUnwrap:
+  Description: 'Unhandled calling of #unwrap!'
+  Enabled: true
+  VersionAdded: "0.1.0"
