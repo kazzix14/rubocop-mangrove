@@ -33,6 +33,10 @@ module RuboCop
           `(send ... :expect!)
         PATTERN
 
+        def_node_matcher :calling_expect_with?, <<~PATTERN
+          `(send ... :expect_with!)
+        PATTERN
+
         def_node_matcher :rescuing_signal?, <<~PATTERN
           (rescue <(resbody <(array <(const ... :ControlSignal) ...>) ...>) ...>)
         PATTERN
@@ -42,7 +46,7 @@ module RuboCop
         PATTERN
 
         def exam(node)
-          return unless calling_unwrap?(node) || calling_expect?(node)
+          return unless calling_unwrap?(node) || calling_expect?(node) || calling_expect_with?(node)
 
           rescuing_control_signal = node.children.any? { |child_node|
             rescuing_signal?(child_node) || rescuing_signal_with_ensure?(child_node)
