@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rubocop-mangrove (0.3.0)
+    rubocop-mangrove (0.4.0)
       parser
       rubocop
       unparser
