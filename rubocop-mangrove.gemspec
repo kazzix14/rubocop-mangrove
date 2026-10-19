@@ -36,5 +36,6 @@ Gem::Specification.new { |spec|
 
   spec.add_runtime_dependency "parser"
   spec.add_runtime_dependency "rubocop", ">= 1.62.0"
+  spec.add_runtime_dependency "rubocop-ast", ">= 1.49.0"
   spec.add_runtime_dependency "unparser", ">= 0.8.1"
 }

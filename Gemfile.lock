@@ -4,6 +4,7 @@ PATH
     rubocop-mangrove (0.4.0)
       parser
       rubocop (>= 1.62.0)
+      rubocop-ast (>= 1.49.0)
       unparser (>= 0.8.1)
 
 GEM
