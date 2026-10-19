@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "parser/current"
 require "unparser"
 
 module RuboCop
@@ -55,12 +54,22 @@ module RuboCop
           return if rescuing_control_signal
 
           add_offense(node) { |corrector|
-            source = node.source
-            ast = ::Parser::CurrentRuby.parse(source)
-            source_buffer = ::Parser::Source::Buffer.new("", source: node.source)
+            source = ::RuboCop::ProcessedSource.new(
+              node.source,
+              processed_source.ruby_version,
+              parser_engine: processed_source.parser_engine
+            )
             rewriter = ::RuboCop::Cop::Mangrove::UnhandledUnwrap::Rewriter.new
-            corrector.replace(node, rewriter.rewrite(source_buffer, ast))
+            corrector.replace(node, rewriter.rewrite(source.buffer, parser_node(source.ast)))
           }
+        end
+
+        # Unparser expects plain parser nodes, not RuboCop's specialized subclasses.
+        def parser_node(node)
+          return node unless node.is_a?(::Parser::AST::Node)
+
+          children = node.children.map { |child| parser_node(child) }
+          ::Parser::AST::Node.new(node.type, children, location: node.location)
         end
 
         class Rewriter < Parser::TreeRewriter

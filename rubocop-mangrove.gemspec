@@ -35,6 +35,6 @@ Gem::Specification.new { |spec|
   # guide at: https://bundler.io/guides/creating_gem.html
 
   spec.add_runtime_dependency "parser"
-  spec.add_runtime_dependency "rubocop"
-  spec.add_runtime_dependency "unparser"
+  spec.add_runtime_dependency "rubocop", ">= 1.62.0"
+  spec.add_runtime_dependency "unparser", ">= 0.8.1"
 }
